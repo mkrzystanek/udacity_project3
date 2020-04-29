@@ -1,0 +1,2 @@
+The sqrt() funcition finds floor square root of the argument using binary search algorithm, therefore the time complexity is O(log n).
+The space time complexity is O(1), as none of variables size depend of input value.
