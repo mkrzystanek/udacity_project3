@@ -10,6 +10,43 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
+    # Find a point of rotation, which splits list into two sorted lists (time complexity: O(log n)
+    rotation_point = find_rotation_point(0, len(input_list)-1, input_list)
+
+    # Find out which list contains searched number (time complexity: O(1)
+    list_with_searched_number = find_array_with_searched_number(input_list, rotation_point, number)
+
+    # Perform binary search on one of the sorted parts of input_lists
+    return binary_search(list_with_searched_number, 0, len(list_with_searched_number)-1, number)
+
+
+def find_rotation_point(start, end, input_list):
+    mid_point = start + (end - start) // 2
+    last_value = input_list[end]
+    value = input_list[mid_point]
+
+    if end - start == 1:
+        if value > last_value:
+            return end
+        else:
+            return mid_point
+
+    if value < last_value:
+        return find_rotation_point(start, mid_point, input_list)
+    elif value > last_value:
+        return find_rotation_point(mid_point + 1, end, input_list)
+
+
+def find_array_with_searched_number(input_list, rotation_point, number):
+    if rotation_point == 0:
+        return input_list
+    elif input_list[-1] < number:
+        return input_list[:rotation_point-1]
+    else:
+        return input_list[rotation_point:]
+
+
+def binary_search(input_list, start, end, number):
     pass
 
 
@@ -29,8 +66,40 @@ def test_function(test_case):
         print("Fail")
 
 
-test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6])
-test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
-test_function([[6, 7, 8, 1, 2, 3, 4], 8])
-test_function([[6, 7, 8, 1, 2, 3, 4], 1])
-test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+testList1 = [6, 7, 8, 9, 10, 1, 2, 3, 4]
+testList2 = [1, 2, 3, 4, 6, 7, 8, 9, 10]
+testList3 = [2, 3, 4, 6, 7, 8, 9, 10, 1]
+testList4 = [10, 1, 2, 3, 4, 6, 7, 8, 9]
+
+print(find_rotation_point(0, len(testList1)-1, testList1))
+assert find_rotation_point(0, len(testList1)-1, testList1) == 5
+
+print(find_rotation_point(0, len(testList2)-1, testList2))
+assert find_rotation_point(0, len(testList2)-1, testList2) == 0
+
+print(find_rotation_point(0, len(testList3)-1, testList3))
+assert find_rotation_point(0, len(testList3)-1, testList3) == 8
+
+print(find_rotation_point(0, len(testList4)-1, testList4))
+assert find_rotation_point(0, len(testList4)-1, testList4) == 1
+
+print(find_array_with_searched_number(testList1, 5, 7))
+assert find_array_with_searched_number(testList1, 5, 7) == [6, 7, 8, 9]
+
+print(find_array_with_searched_number(testList2, 0, 7))
+assert find_array_with_searched_number(testList2, 0, 7) == [1, 2, 3, 4, 6, 7, 8, 9, 10]
+
+print(find_array_with_searched_number(testList3, 8, 7))
+assert find_array_with_searched_number(testList3, 8, 7) == [2, 3, 4, 6, 7, 8, 9]
+
+print(find_array_with_searched_number(testList4, 1, 7))
+assert find_array_with_searched_number(testList4, 1, 7) == [1, 2, 3, 4, 6, 7, 8, 9]
+
+# test_function([testList1, 6])
+# test_function([testList2, 6])
+# test_function([testList3, 6])
+# test_function([testList4, 6])
+# test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
+# test_function([[6, 7, 8, 1, 2, 3, 4], 8])
+# test_function([[6, 7, 8, 1, 2, 3, 4], 1])
+# test_function([[6, 7, 8, 1, 2, 3, 4], 10])
