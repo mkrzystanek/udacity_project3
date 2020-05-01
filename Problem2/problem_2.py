@@ -13,11 +13,11 @@ def rotated_array_search(input_list, number):
     # Find a point of rotation, which splits list into two sorted lists (time complexity: O(log n))
     rotation_point = find_rotation_point(0, len(input_list)-1, input_list)
 
-    # Find out which list contains searched number (time complexity: O(1)) ???
-    list_with_searched_number = find_array_with_searched_number(input_list, rotation_point, number)
+    # Find out which list contains searched number (time complexity: O(1))
+    start, end = find_array_with_searched_number(input_list, rotation_point, number)
 
     # Perform binary search on one of the sorted parts of input_lists (time complexity: O(log n)
-    return binary_search(list_with_searched_number, 0, len(list_with_searched_number)-1, number)
+    return binary_search(input_list, start, end, number)
 
 
 def find_rotation_point(start, end, input_list):
@@ -37,14 +37,13 @@ def find_rotation_point(start, end, input_list):
         return find_rotation_point(mid_point + 1, end, input_list)
 
 
-# TODO: check time complexity of list splitting
 def find_array_with_searched_number(input_list, rotation_point, number):
     if rotation_point == 0:
-        return input_list
+        return 0, len(input_list)-1
     elif input_list[-1] < number:
-        return input_list[:rotation_point-1]
+        return 0, rotation_point-1
     else:
-        return input_list[rotation_point:]
+        return rotation_point, len(input_list)-1
 
 
 def binary_search(input_list, start, end, number):
@@ -72,6 +71,8 @@ def linear_search(input_list, number):
 def test_function(test_case):
     input_list = test_case[0]
     number = test_case[1]
+    print(linear_search(input_list, number))
+    print(rotated_array_search(input_list, number))
     if linear_search(input_list, number) == rotated_array_search(input_list, number):
         print("Pass")
     else:
@@ -96,16 +97,16 @@ print(find_rotation_point(0, len(testList4)-1, testList4))
 assert find_rotation_point(0, len(testList4)-1, testList4) == 1
 
 print(find_array_with_searched_number(testList1, 5, 7))
-assert find_array_with_searched_number(testList1, 5, 7) == [6, 7, 8, 9]
+assert find_array_with_searched_number(testList1, 5, 7) == (0, 4)
 
 print(find_array_with_searched_number(testList2, 0, 7))
-assert find_array_with_searched_number(testList2, 0, 7) == [1, 2, 3, 4, 6, 7, 8, 9, 10]
+assert find_array_with_searched_number(testList2, 0, 7) == (0, 8)
 
 print(find_array_with_searched_number(testList3, 8, 7))
-assert find_array_with_searched_number(testList3, 8, 7) == [2, 3, 4, 6, 7, 8, 9]
+assert find_array_with_searched_number(testList3, 8, 7) == (0, 7)
 
 print(find_array_with_searched_number(testList4, 1, 7))
-assert find_array_with_searched_number(testList4, 1, 7) == [1, 2, 3, 4, 6, 7, 8, 9]
+assert find_array_with_searched_number(testList4, 1, 7) == (1, 8)
 
 testList5 = [1, 2, 3, 4, 5]
 print(binary_search(testList5, 0, len(testList5)-1, 5))
