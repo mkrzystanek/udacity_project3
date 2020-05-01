@@ -10,13 +10,13 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
-    # Find a point of rotation, which splits list into two sorted lists (time complexity: O(log n)
+    # Find a point of rotation, which splits list into two sorted lists (time complexity: O(log n))
     rotation_point = find_rotation_point(0, len(input_list)-1, input_list)
 
-    # Find out which list contains searched number (time complexity: O(1)
+    # Find out which list contains searched number (time complexity: O(1)) ???
     list_with_searched_number = find_array_with_searched_number(input_list, rotation_point, number)
 
-    # Perform binary search on one of the sorted parts of input_lists
+    # Perform binary search on one of the sorted parts of input_lists (time complexity: O(log n)
     return binary_search(list_with_searched_number, 0, len(list_with_searched_number)-1, number)
 
 
@@ -37,6 +37,7 @@ def find_rotation_point(start, end, input_list):
         return find_rotation_point(mid_point + 1, end, input_list)
 
 
+# TODO: check time complexity of list splitting
 def find_array_with_searched_number(input_list, rotation_point, number):
     if rotation_point == 0:
         return input_list
@@ -47,7 +48,18 @@ def find_array_with_searched_number(input_list, rotation_point, number):
 
 
 def binary_search(input_list, start, end, number):
-    pass
+    if end - start < 0:
+        return -1
+
+    mid_point = start + (end - start) // 2
+    value = input_list[mid_point]
+
+    if value == number:
+        return mid_point
+    elif value > number:
+        return binary_search(input_list, start, mid_point, number)
+    else:
+        return binary_search(input_list, mid_point+1, end, number)
 
 
 def linear_search(input_list, number):
@@ -95,11 +107,24 @@ assert find_array_with_searched_number(testList3, 8, 7) == [2, 3, 4, 6, 7, 8, 9]
 print(find_array_with_searched_number(testList4, 1, 7))
 assert find_array_with_searched_number(testList4, 1, 7) == [1, 2, 3, 4, 6, 7, 8, 9]
 
-# test_function([testList1, 6])
-# test_function([testList2, 6])
-# test_function([testList3, 6])
-# test_function([testList4, 6])
-# test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
-# test_function([[6, 7, 8, 1, 2, 3, 4], 8])
-# test_function([[6, 7, 8, 1, 2, 3, 4], 1])
-# test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+testList5 = [1, 2, 3, 4, 5]
+print(binary_search(testList5, 0, len(testList5)-1, 5))
+assert binary_search(testList5, 0, len(testList5)-1, 5) == 4
+
+print(binary_search(testList5, 0, len(testList5)-1, 1))
+assert binary_search(testList5, 0, len(testList5)-1, 1) == 0
+
+print(binary_search(testList5, 0, len(testList5)-1, 3))
+assert binary_search(testList5, 0, len(testList5)-1, 3) == 2
+
+print(binary_search(testList5, 0, len(testList5)-1, 9))
+assert binary_search(testList5, 0, len(testList5)-1, 9) == -1
+
+test_function([testList1, 6])
+test_function([testList2, 6])
+test_function([testList3, 6])
+test_function([testList4, 6])
+test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
+test_function([[6, 7, 8, 1, 2, 3, 4], 8])
+test_function([[6, 7, 8, 1, 2, 3, 4], 1])
+test_function([[6, 7, 8, 1, 2, 3, 4], 10])
