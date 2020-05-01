@@ -71,8 +71,8 @@ def linear_search(input_list, number):
 def test_function(test_case):
     input_list = test_case[0]
     number = test_case[1]
-    print(linear_search(input_list, number))
-    print(rotated_array_search(input_list, number))
+    print("expected: " + str(linear_search(input_list, number)))
+    print("output: " + str(rotated_array_search(input_list, number)))
     if linear_search(input_list, number) == rotated_array_search(input_list, number):
         print("Pass")
     else:
@@ -84,6 +84,7 @@ testList2 = [1, 2, 3, 4, 6, 7, 8, 9, 10]
 testList3 = [2, 3, 4, 6, 7, 8, 9, 10, 1]
 testList4 = [10, 1, 2, 3, 4, 6, 7, 8, 9]
 
+print("find_rotation_point() tests:")
 print(find_rotation_point(0, len(testList1)-1, testList1))
 assert find_rotation_point(0, len(testList1)-1, testList1) == 5
 
@@ -96,6 +97,7 @@ assert find_rotation_point(0, len(testList3)-1, testList3) == 8
 print(find_rotation_point(0, len(testList4)-1, testList4))
 assert find_rotation_point(0, len(testList4)-1, testList4) == 1
 
+print("\nfind_array_with_searched_number tests")
 print(find_array_with_searched_number(testList1, 5, 7))
 assert find_array_with_searched_number(testList1, 5, 7) == (0, 4)
 
@@ -108,6 +110,7 @@ assert find_array_with_searched_number(testList3, 8, 7) == (0, 7)
 print(find_array_with_searched_number(testList4, 1, 7))
 assert find_array_with_searched_number(testList4, 1, 7) == (1, 8)
 
+print("\nbinary_search() tests")
 testList5 = [1, 2, 3, 4, 5]
 print(binary_search(testList5, 0, len(testList5)-1, 5))
 assert binary_search(testList5, 0, len(testList5)-1, 5) == 4
@@ -121,6 +124,7 @@ assert binary_search(testList5, 0, len(testList5)-1, 3) == 2
 print(binary_search(testList5, 0, len(testList5)-1, 9))
 assert binary_search(testList5, 0, len(testList5)-1, 9) == -1
 
+print("\nrotated_array_search() tests")
 test_function([testList1, 6])
 test_function([testList2, 6])
 test_function([testList3, 6])
