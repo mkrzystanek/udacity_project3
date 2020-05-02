@@ -10,11 +10,34 @@ def rearrange_digits(input_list):
     Returns:
        (int),(int): Two maximum sums
     """
-    # Create a max heap of input list
-    # Create two output lists, that will represent returned values
-    # Remove max value from the heap, and add it to one of the output lists. Then heapify. Then repeat for the second
-    # output list.
-    # Change lists to numbers and return 
+    # Create a max heap of input list O(n)
+    heap = create_heap(input_list)
+    # Create two output strings, that will represent returned values O(1)
+    first_number = ""
+    second_number = ""
+    # Remove max value from the heap, and add it to one of the output lists. O(1)
+    # Heapify. O(log n)
+    # Then repeat for the second output list. O(log n)
+    # Time complexity of the loop: O(n log n)
+    should_add_to_first_list = True
+    while len(heap) > 0:
+        max_elem = heap.pop(0)
+        heapify(heap)
+        if should_add_to_first_list:
+            first_number += str(max_elem)
+        else:
+            second_number += str(max_elem)
+        should_add_to_first_list = not should_add_to_first_list
+    # Change output strings to numbers and return
+    return [int(first_number), int(second_number)]
+
+
+def create_heap(input_list):
+    return input_list
+
+
+def heapify(input_list):
+    pass
 
 
 def test_function(test_case):
