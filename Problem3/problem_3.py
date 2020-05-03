@@ -1,3 +1,5 @@
+from HeapSort import HeapSort
+
 # Rearrange Array Elements
 
 
@@ -11,18 +13,16 @@ def rearrange_digits(input_list):
        (int),(int): Two maximum sums
     """
     # Create a max heap of input list O(n)
-    heap = create_heap(input_list)
+    heap = HeapSort(input_list)
     # Create two output strings, that will represent returned values O(1)
-    first_number = ""
-    second_number = ""
-    # Remove max value from the heap, and add it to one of the output lists. O(1)
-    # Heapify. O(log n)
+    first_number = "0"
+    second_number = "0"
+    # Remove max value from the heap, and add it to one of the output lists. O(log n)
     # Then repeat for the second output list. O(log n)
     # Time complexity of the loop: O(n log n)
     should_add_to_first_list = True
-    while len(heap) > 0:
-        max_elem = heap.pop(0)
-        heapify(heap)
+    while heap.size() > 0:
+        max_elem = heap.remove_largest()
         if should_add_to_first_list:
             first_number += str(max_elem)
         else:
@@ -32,17 +32,10 @@ def rearrange_digits(input_list):
     return [int(first_number), int(second_number)]
 
 
-def create_heap(input_list):
-    return input_list
-
-
-def heapify(input_list):
-    pass
-
-
 def test_function(test_case):
     output = rearrange_digits(test_case[0])
     solution = test_case[1]
+    print(output)
     if sum(output) == sum(solution):
         print("Pass")
     else:
@@ -51,3 +44,8 @@ def test_function(test_case):
 
 test_function([[1, 2, 3, 4, 5], [542, 31]])
 test_case = [[4, 6, 2, 5, 9, 8], [964, 852]]
+test_function(test_case)
+test_case2 = [[], [0, 0]]
+test_function(test_case2)
+test_case3 = [[1], [1, 0]]
+test_function(test_case3)
