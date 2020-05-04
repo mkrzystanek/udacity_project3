@@ -1,3 +1,5 @@
+# HTTPRouter using a Trie
+
 # A RouteTrie will store our routes and their associated handlers
 class RouteTrie:
     def __init__(self):
@@ -83,3 +85,6 @@ print(router.lookup("/home/about"))  # should print 'about handler'
 print(router.lookup(
     "/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
 print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
+print(router.lookup(""))
+print(router.lookup("//"))
+print(router.lookup("/about"))
