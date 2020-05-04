@@ -1,5 +1,6 @@
 # HTTPRouter using a Trie
 
+
 # A RouteTrie will store our routes and their associated handlers
 class RouteTrie:
     def __init__(self):
@@ -39,6 +40,7 @@ class RouteTrieNode:
     def insert(self, path):
         if path not in self.paths:
             self.paths.update({path: RouteTrieNode()})
+
 
 # The Router class will wrap the Trie and handle
 class Router:
