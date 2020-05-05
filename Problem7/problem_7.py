@@ -21,8 +21,6 @@ class RouteTrie:
         # Starting at the root, navigate the Trie to find a match for this path
         # Return the handler for a match, or None for no match
         current = self.root
-        if paths == ['']:
-            return self.root.handler
         for p in paths:
             if p not in current.paths:
                 return "not found handler"
@@ -67,26 +65,33 @@ class Router:
 
     def split_path(self, path):
         # you need to split the path into parts for
-        # both the add_handler and loopup functions,
+        # both the add_handler and lookup functions,
         # so it should be placed in a function here
         paths = path.split("/")
-        paths.remove("")
+        paths = list(filter(lambda p: p != "", paths))
         return paths
 
 
 # Here are some test cases and expected outputs you can use to test your implementation
 
 # create the router and add a route
-router = Router()  # remove the 'not found handler' if you did not implement this
+router = Router()
 router.add_handler("/home/about", "about handler")  # add a route
 
 # some lookups with the expected output
 print(router.lookup("/"))  # should print 'root handler'
-print(router.lookup("/home"))  # should print 'not found handler' or None if you did not implement one
+assert router.lookup("/") == 'root handler'
+print(router.lookup("/home"))  # should print 'not found handler'
+assert router.lookup("/home") == 'not found handler'
 print(router.lookup("/home/about"))  # should print 'about handler'
-print(router.lookup(
-    "/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
-print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
-print(router.lookup(""))
-print(router.lookup("//"))
-print(router.lookup("/about"))
+assert router.lookup("/home/about") == 'about handler'
+print(router.lookup("/home/about/"))  # should print 'about handler'
+assert router.lookup("/home/about/") == 'about handler'
+print(router.lookup("/home/about/me"))  # should print 'not found handler'
+assert router.lookup("/home/about/me") == 'not found handler'
+print(router.lookup(""))  # prints 'root handler'
+assert router.lookup("") == 'root handler'
+print(router.lookup("//"))  # prints 'root handler'
+assert router.lookup("//") == 'root handler'
+print(router.lookup("/about"))  # prints 'not found handler'
+assert router.lookup("/about") == 'not found handler'
