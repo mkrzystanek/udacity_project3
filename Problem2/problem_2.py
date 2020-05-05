@@ -10,6 +10,8 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
+    if len(input_list) < 1:
+        return -1
     # Find a point of rotation, which splits list into two sorted lists (time complexity: O(log n))
     rotation_point = find_rotation_point(0, len(input_list)-1, input_list)
 
@@ -133,3 +135,4 @@ test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
 test_function([[6, 7, 8, 1, 2, 3, 4], 8])
 test_function([[6, 7, 8, 1, 2, 3, 4], 1])
 test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+test_function([[], 1])
