@@ -51,6 +51,9 @@ class Router:
         # Add a handler for a path
         # You will need to split the path and pass the pass parts
         # as a list to the RouteTrie
+        if path is None or handler is None:
+            print("Failed to add handler")
+            return
         path_parts = self.split_path(path)
         self.route_trie.insert(path_parts, handler)
 
@@ -99,3 +102,11 @@ print(router.lookup("/about"))  # prints 'not found handler'
 assert router.lookup("/about") == 'not found handler'
 print(router.lookup(None))  # prints 'not found handler'
 assert router.lookup(None) == 'not found handler'
+
+router.add_handler("", 'some handler')
+print(router.lookup(""))  # prints 'some handler'
+assert router.lookup("/") == 'some handler'
+router.add_handler("/", 'root handler')
+print(router.lookup(""))  # prints 'root handler'
+assert router.lookup("/") == 'root handler'
+router.add_handler(None, 'some handler')  # prints "Failed to add handler"
