@@ -5,6 +5,8 @@ def sort_012(input_list):
     Args:
        input_list(list): List to be sorted
     """
+    if input_list is None:
+        return None
     index = 0
     times_added_to_tail = 0
     while index < len(input_list)-1:
@@ -42,3 +44,5 @@ test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
 test_function([1, 2, 0])
 test_function([])
 test_function([2, 2, 2, 0, 1])
+print("Pass" if sort_012(None) is None else "Fail")
+

@@ -10,7 +10,7 @@ def get_min_max(ints):
     Args:
        ints(list): list of integers containing one or more integers
     """
-    if len(ints) == 0:
+    if ints is None or len(ints) == 0:
         return None, None
 
     min_value = float("inf")
@@ -37,3 +37,4 @@ print("Pass" if ((0, 9) == get_min_max(l)) else "Fail")
 print("Pass" if ((None, None) == get_min_max(l2)) else "Fail")
 print("Pass" if ((-1, 1) == get_min_max(l3)) else "Fail")
 print("Pass" if ((0, 0) == get_min_max(l4)) else "Fail")
+print("Pass" if ((None, None) == get_min_max(None)) else "Fail")

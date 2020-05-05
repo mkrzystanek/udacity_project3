@@ -33,6 +33,8 @@ class Trie:
 
     def insert(self, word):
         """Add a word to the Trie"""
+        if word is None or word == "":
+            return
         current_node = self.root
         for char in word:
             current_node.insert(char)
@@ -41,6 +43,8 @@ class Trie:
 
     def find(self, prefix):
         """Find the Trie node that represents this prefix"""
+        if prefix is None or prefix == "":
+            return None
         current_node = self.root
         for char in prefix:
             if char not in current_node.children:
@@ -73,3 +77,7 @@ assert prefix4 is None
 MyTrie2 = Trie()
 prefix5 = MyTrie2.find("a")
 assert prefix5 is None
+MyTrie2.insert("")
+assert MyTrie2.find("") is None
+MyTrie2.insert(None)
+assert MyTrie2.find(None) is None

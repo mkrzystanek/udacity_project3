@@ -1,7 +1,11 @@
 class HeapSort:
     def __init__(self, input_list):
-        self.heap_list = input_list
-        self.create_heap()
+        if input_list is None:
+            self.heap_list = []
+        else:
+            self.heap_list = input_list
+        if input_list is not None and len(input_list) > 1:
+            self.create_heap()
 
     def create_heap(self):
         for index in range(len(self.heap_list), -1, -1):

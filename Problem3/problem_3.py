@@ -51,3 +51,5 @@ test_case3 = [[1], [1, 0]]
 test_function(test_case3)
 test_case4 = [[0], [0, 0]]
 test_function(test_case4)
+test_case5 = [None, [0, 0]]
+test_function(test_case5)

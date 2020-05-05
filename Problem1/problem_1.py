@@ -10,7 +10,7 @@ def sqrt(number):
     Returns:
        int: Floored Square Root
     """
-    if number < 0:
+    if number is None or number < 0:
         return None
     if number == 1:
         return 1
@@ -48,3 +48,4 @@ print("Pass" if (3 == sqrt(14)) else "Fail")
 print("Pass" if (2 == sqrt(7)) else "Fail")
 print("Pass" if (None is sqrt(-1)) else "Fail")
 print("Pass" if (100 == sqrt(10000)) else "Fail")
+print("Pass" if (None is sqrt(None)) else "Fail")
